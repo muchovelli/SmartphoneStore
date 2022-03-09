@@ -50,6 +50,8 @@ public class Smartphone {
     @OneToOne
     private Camera camera;
 
+    @Column(name="quantity")
+    private int quantity;
 
     public Brand getBrand() {
         return brand;
@@ -145,5 +147,13 @@ public class Smartphone {
 
     public void setCamera(Camera camera) {
         this.camera = camera;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
