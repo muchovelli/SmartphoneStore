@@ -1,6 +1,5 @@
-package com.adam.mobileshop.service;
+package com.adam.mobileshop.smartphone;
 
-import com.adam.mobileshop.model.Smartphone;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,7 +7,8 @@ import java.util.List;
 @Service
 public interface SmartphoneService {
     List<Smartphone> getSmartphones();
-    void newSmartphone(Smartphone smartphone);
+    Smartphone saveSmartphone(Smartphone smartphone);
     void deleteSmarthoneById(long id);
     Smartphone findById(long id);
+    Smartphone scrapeSmartphone(String link);
 }

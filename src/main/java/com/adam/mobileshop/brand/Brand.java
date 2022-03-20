@@ -1,4 +1,6 @@
-package com.adam.mobileshop.model;
+package com.adam.mobileshop.brand;
+
+import com.adam.mobileshop.smartphone.Smartphone;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,5 +25,17 @@ public class Brand {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSmartphoneList(List<Smartphone> smartphoneList) {
+        this.smartphoneList = smartphoneList;
     }
 }

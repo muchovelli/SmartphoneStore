@@ -1,13 +1,12 @@
-package com.adam.mobileshop.service;
+package com.adam.mobileshop.brand;
 
-import com.adam.mobileshop.model.Brand;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
 
 @Service
 public interface BrandService {
-    List<Brand> getBrands();
+    Set<Brand> getBrands();
     Brand findById(long id);
     void deleteById(long id);
     void saveNewBrand(Brand brand);

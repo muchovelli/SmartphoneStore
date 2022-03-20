@@ -1,20 +1,24 @@
-package com.adam.mobileshop.model;
+package com.adam.mobileshop.smartphone;
 
-import javax.annotation.Resource;
+import com.adam.mobileshop.brand.Brand;
+import com.adam.mobileshop.camera.Camera;
+import lombok.AllArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
+@AllArgsConstructor
 @Entity
 @Table(name="Smartphone")
 public class Smartphone {
     @Id
     @Column(name = "smartphone_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+//    @ManyToOne
+//    @JoinColumn(name = "brand_id")
+//    private Brand brand;
 
     @Column(name="model_name")
     private String modelName;
@@ -46,16 +50,21 @@ public class Smartphone {
     @Column(name="bluetooth")
     private boolean bluetooth;
 
-    @JoinColumn(name = "camera_id", nullable = false)
-    @OneToOne
-    private Camera camera;
+//    @JoinColumn(name = "camera_id", nullable = false)
+//    @OneToOne
+//    private Camera camera;
 
     @Column(name="quantity")
     private int quantity;
 
-    public Brand getBrand() {
-        return brand;
+    public Smartphone() {
+
     }
+
+
+    // public Brand getBrand() {
+    //    return brand;
+   // }
 
     public long getId() {
         return id;
@@ -65,9 +74,9 @@ public class Smartphone {
         this.id = id;
     }
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
+//    public void setBrand(Brand brand) {
+//        this.brand = brand;
+//    }
 
     public String getModelName() {
         return modelName;
@@ -141,13 +150,13 @@ public class Smartphone {
         this.bluetooth = bluetooth;
     }
 
-    public Camera getCamera() {
-        return camera;
-    }
-
-    public void setCamera(Camera camera) {
-        this.camera = camera;
-    }
+//    public Camera getCamera() {
+//        return camera;
+//    }
+//
+//    public void setCamera(Camera camera) {
+//        this.camera = camera;
+//    }
 
     public int getQuantity() {
         return quantity;

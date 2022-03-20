@@ -1,6 +1,5 @@
-package com.adam.mobileshop.repository;
+package com.adam.mobileshop.brand;
 
-import com.adam.mobileshop.model.Brand;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
