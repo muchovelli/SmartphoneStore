@@ -7,11 +7,11 @@ import java.util.List;
 
 @Entity
 public class Brand {
-    @Id
+   @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+/*
     @Column(name="brand_name")
     private String name;
 
@@ -37,5 +37,5 @@ public class Brand {
 
     public void setSmartphoneList(List<Smartphone> smartphoneList) {
         this.smartphoneList = smartphoneList;
-    }
+    }*/
 }

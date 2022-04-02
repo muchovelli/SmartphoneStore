@@ -1,42 +1,39 @@
 package com.adam.mobileshop.smartphone;
 
-import com.adam.mobileshop.brand.Brand;
 import com.adam.mobileshop.brand.BrandRepo;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class SmartphoneServiceImpl implements SmartphoneService{
     @Autowired
     private SmartphoneRepo smartphoneRepo;
-    @Autowired
-    private BrandRepo brandRepo;
+
+
+    protected Map<Long, Smartphone> map = new HashMap<>();
 
     @Override
-    public List<Smartphone> getSmartphones() {
-        return smartphoneRepo.findAll();
+    public Set<Smartphone> getSmartphones() {
+        System.out.println(map);
+        return new HashSet<>(map.values());
     }
 
     @Override
     public Smartphone saveSmartphone(Smartphone smartphone) {
-        smartphoneRepo.save(smartphone);
+        map.put(smartphone.getId(),smartphone);
+        this.smartphoneRepo.save(smartphone);
         return smartphone;
     }
 
     @Override
-    public void deleteSmarthoneById(long id) {
+    public void deleteSmarthoneById(Long id) {
         smartphoneRepo.deleteById(id);
     }
 
     @Override
-    public Smartphone findById(long id) {
+    public Smartphone findById(Long id) {
         Optional<Smartphone> optional = smartphoneRepo.findById(id);
         Smartphone smartphone = null;
         if(optional.isPresent()){
@@ -48,6 +45,11 @@ public class SmartphoneServiceImpl implements SmartphoneService{
     }
 
     @Override
+    public Smartphone scrapeSmartphone(String link) {
+        return null;
+    }
+
+   /* @Override
     public Smartphone scrapeSmartphone(String link) {
         Smartphone smartphone = new Smartphone();
         Brand brand = new Brand();
@@ -98,5 +100,5 @@ public class SmartphoneServiceImpl implements SmartphoneService{
             e.printStackTrace();
         }
         return smartphone;
-    }
+    }*/
 }

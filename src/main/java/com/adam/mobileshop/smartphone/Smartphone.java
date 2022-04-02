@@ -3,24 +3,25 @@ package com.adam.mobileshop.smartphone;
 import com.adam.mobileshop.brand.Brand;
 import com.adam.mobileshop.camera.Camera;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
-@AllArgsConstructor
 @Entity
 @Table(name="Smartphone")
-public class Smartphone {
+public class Smartphone implements Serializable {
     @Id
     @Column(name = "smartphone_id", nullable = false)
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
+    private Long id;
 
 //    @ManyToOne
 //    @JoinColumn(name = "brand_id")
 //    private Brand brand;
 
-    @Column(name="model_name")
+   @Column(name="model_name")
     private String modelName;
 
     @ElementCollection
@@ -57,6 +58,22 @@ public class Smartphone {
     @Column(name="quantity")
     private int quantity;
 
+    @Builder
+    public Smartphone(long id, String modelName, List<String> otherNames, List<String> standards, float weight, String display, List<String> internalMemory, String operatingSystem, Boolean dualSim, boolean bluetooth, int quantity) {
+        this.id = id;
+        this.modelName = modelName;
+        this.otherNames = otherNames;
+        this.standards = standards;
+        this.weight = weight;
+        this.display = display;
+        this.internalMemory = internalMemory;
+        this.operatingSystem = operatingSystem;
+        this.dualSim = dualSim;
+        this.bluetooth = bluetooth;
+        this.quantity = quantity;
+    }
+
+
     public Smartphone() {
 
     }
@@ -66,11 +83,11 @@ public class Smartphone {
     //    return brand;
    // }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -165,4 +182,6 @@ public class Smartphone {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+
 }
