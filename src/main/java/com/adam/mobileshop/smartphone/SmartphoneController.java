@@ -2,19 +2,21 @@ package com.adam.mobileshop.smartphone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class SmartphoneController {
     @Autowired
     private SmartphoneService smartphoneService;
 
-    /*@GetMapping("/")
-    public String viewIndex(Model model){
-        model.getAttribute("listOfSmarthone", smartphoneService.getSmartphones());
-        return "index";
-    }*/
+
+
+    @GetMapping("/smartphoneList")
+    public String viewListOfSmartphones(Model model){
+        model.addAttribute("smartphoneList", smartphoneService.getSmartphones());
+        return "smartphoneList";
+    }
 
     @PostMapping("/saveSmartphone")
     public String saveSmartphone(@ModelAttribute("smartphone")Smartphone smartphone){
@@ -22,13 +24,26 @@ public class SmartphoneController {
         smartphoneService.saveSmartphone(smartphone);
         return "redirect:/";
     }
-    @PostMapping("/scrapeSmartphone")
-    public String scrapeSmartphone(@ModelAttribute("link")String link){
-        //save employee to db
+
+    @GetMapping("/newScrapedSmartphone")
+    public String showNewEmployeeForm(Model model){
+        Smartphone smartphone = new Smartphone();
+        model.addAttribute("smartphone",smartphone);
+        return "scrapeSmartphone";
+    }
+    @PostMapping("/setNewScraping")
+    public String setNewScraping(Model model, @RequestParam String link){
+        //scrape
         Smartphone temp = new Smartphone();
+        System.out.println(link + " dupa");
         temp = smartphoneService.scrapeSmartphone(link);
+        temp.toString();
+        //saveSmartphone
         smartphoneService.saveSmartphone(temp);
+        smartphoneService.findById(1L);
+        System.out.println("List: " + smartphoneService.getSmartphones());
         return "redirect:/";
     }
+
 
 }

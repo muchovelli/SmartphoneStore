@@ -24,7 +24,10 @@ class SmartphoneStoreApplicationTests {
     public void setUp(){
         List<String> otherNames = new ArrayList<>();
         otherNames.add("a");
-        smartphoneServiceImpl.saveSmartphone(Smartphone.builder().id(1L).modelName("Samsung").otherNames(otherNames).standards(otherNames).weight(500.00f).display("LCD").internalMemory(otherNames).operatingSystem("Windows").dualSim(false).bluetooth(false).quantity(2).build());
+        //smartphoneServiceImpl.saveSmartphone(Smartphone.builder().id(1L).modelName("Samsung").otherNames(otherNames).standards(otherNames).weight(500.00).display("LCD").internalMemory(otherNames).operatingSystem("Windows").dualSim(false).bluetooth(false).quantity(2).build());
+        Smartphone smartphone = new Smartphone();
+        smartphone = smartphoneServiceImpl.scrapeSmartphone("https://www.gsmchoice.com/en/catalogue/apple/iphone13/");
+        smartphoneServiceImpl.saveSmartphone(smartphone);
     }
 
     @Test
@@ -37,5 +40,17 @@ class SmartphoneStoreApplicationTests {
     @Test
     void contextLoads() {
     }
+
+    @Test
+    void scrapingSmartphoneTest(){
+
+
+    }
+
+    @Test
+    void displayEverySmarthpone(){
+
+    }
+
 
 }

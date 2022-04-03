@@ -21,6 +21,7 @@ public class Smartphone implements Serializable {
 //    @JoinColumn(name = "brand_id")
 //    private Brand brand;
 
+    String link;
    @Column(name="model_name")
     private String modelName;
 
@@ -33,7 +34,7 @@ public class Smartphone implements Serializable {
     private List<String> standards;
 
     @Column(name="weight")
-    private float weight;
+    private Float weight;
 
     @Column(name="display")
     private String display;
@@ -59,7 +60,7 @@ public class Smartphone implements Serializable {
     private int quantity;
 
     @Builder
-    public Smartphone(long id, String modelName, List<String> otherNames, List<String> standards, float weight, String display, List<String> internalMemory, String operatingSystem, Boolean dualSim, boolean bluetooth, int quantity) {
+    public Smartphone(long id, String modelName, List<String> otherNames, List<String> standards, Float weight, String display, List<String> internalMemory, String operatingSystem, Boolean dualSim, boolean bluetooth, int quantity) {
         this.id = id;
         this.modelName = modelName;
         this.otherNames = otherNames;
@@ -95,6 +96,11 @@ public class Smartphone implements Serializable {
 //        this.brand = brand;
 //    }
 
+
+    public String getLink() {
+        return link;
+    }
+
     public String getModelName() {
         return modelName;
     }
@@ -119,11 +125,11 @@ public class Smartphone implements Serializable {
         this.standards = standards;
     }
 
-    public float getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
@@ -159,7 +165,7 @@ public class Smartphone implements Serializable {
         this.dualSim = dualSim;
     }
 
-    public boolean isBluetooth() {
+    public boolean getBluetooth() {
         return bluetooth;
     }
 
