@@ -1,6 +1,5 @@
 package com.adam.mobileshop.smartphone;
 
-import com.adam.mobileshop.brand.BrandRepo;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +18,26 @@ public class SmartphoneServiceImpl implements SmartphoneService{
 
     @Override
     public Set<Smartphone> getSmartphones() {
-        System.out.println(map);
-        return new HashSet<>(map.values());
+        Set<Smartphone> smartphones = new HashSet<>();
+        smartphoneRepo.findAll().forEach(smartphones::add);
+        return smartphones;
     }
 
     @Override
     public Smartphone saveSmartphone(Smartphone smartphone) {
         if(smartphone!=null){
-            map.put(smartphone.getId(),smartphone);
+            System.out.println("duap");
+            for(Smartphone smartphone1 : smartphoneRepo.findAll()){
+                if(smartphone1.getLink()!=null){
+                    if(smartphone1.getLink().equals(smartphone.getLink())){
+                        System.out.println("Already in database!");
+                        return null;
+                    }
+                }
+            }
+            System.out.println("duapsssssssssssssssssssss");
 
+            map.put(smartphone.getId(),smartphone);
             this.smartphoneRepo.save(smartphone);
             return smartphone;
         }else{
@@ -53,11 +63,11 @@ public class SmartphoneServiceImpl implements SmartphoneService{
     }
 
 
-
     @Override
     public Smartphone scrapeSmartphone(String link) {
         Smartphone smartphone = new Smartphone();
         try {
+            smartphone.setLink(link);
             final Document document = Jsoup.connect(link).get();
             //ModelName
             smartphone.setModelName(document.select("tr:nth-of-type(2) > .phoneCategoryValue").text());
@@ -67,13 +77,11 @@ public class SmartphoneServiceImpl implements SmartphoneService{
             smartphone.setOtherNames(Collections.singletonList(""));
             System.out.println("Other names: " + smartphone.getOtherNames());
 
-
             //Standards
             String str = document.select("tr:nth-of-type(4) > .phoneCategoryValue").text();
             String[] strgs = str.split(" ");
             smartphone.setStandards(List.of(strgs));
             System.out.println("Standards: " + smartphone.getStandards());
-
 
             //Weight
             //smartphone.setWeight(document.select("tr:nth-of-type(13) > .phoneCategoryValue").text());
@@ -129,5 +137,38 @@ public class SmartphoneServiceImpl implements SmartphoneService{
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public Long getIdFromLink(String link1) {
+        for (Smartphone smartphone: smartphoneRepo.findAll()){
+            if(smartphone.getLink().equals(link1)){
+                return smartphone.getId();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Set<Smartphone> getResultList(String keyword) {
+        Set<Smartphone> resultSet = new HashSet<>();
+        for(Smartphone smartphone : smartphoneRepo.findAll()){
+            if(smartphone.getModelName().contains(keyword)){
+                resultSet.add(smartphone);
+            }else if(smartphone.getLink().contains(keyword)){
+                resultSet.add(smartphone);
+            }else if(smartphone.getOperatingSystem().contains(keyword)){
+                resultSet.add(smartphone);
+            }else if(smartphone.getInternalMemory().contains(keyword)){
+                resultSet.add(smartphone);
+            }else if(smartphone.getOtherNames().contains(keyword)){
+                resultSet.add(smartphone);
+            }else if(smartphone.getDisplay().contains(keyword)){
+                resultSet.contains(smartphone);
+            }else if(smartphone.getStandards().contains(keyword)){
+                resultSet.contains(smartphone);
+            }
+        }
+        return resultSet;
     }
 }

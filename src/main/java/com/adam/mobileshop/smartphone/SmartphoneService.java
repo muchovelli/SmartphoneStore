@@ -10,4 +10,6 @@ public interface SmartphoneService {
     void deleteSmarthoneById(Long id);
     Smartphone findById(Long id);
     Smartphone scrapeSmartphone(String link);
+    Long getIdFromLink(String link);
+    Set<Smartphone> getResultList(String keyword);
 }

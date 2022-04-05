@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Smartphone Store</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -40,5 +44,19 @@
         <a class="nav-link" href="#">Login<span class="sr-only">(current)</span></a>
     </div>
 </nav>
+<div class="container">
+    <h1>Smartphone Store</h1>
+    <hr>
+    <h2>Smartphone info</h2>
+    <tr>
+        <td th:text="${smartphone.modelName}">a</td>
+        <td th:text="${id}">id</td>
+        <td><a th:href="@{/deleteSmartphone/{id}(id=${smartphone.id})}" class="btn btn-danger">Delete</a></td>
+    </tr>
+
+    <hr>
+
+    <a th:href = "@{/}"> Back to Smartphone List</a>
+</div>
 </body>
 </html>

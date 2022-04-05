@@ -101,6 +101,10 @@ public class Smartphone implements Serializable {
         return link;
     }
 
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     public String getModelName() {
         return modelName;
     }
