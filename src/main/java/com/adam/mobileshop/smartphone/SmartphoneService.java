@@ -12,4 +12,5 @@ public interface SmartphoneService {
     Smartphone scrapeSmartphone(String link);
     Long getIdFromLink(String link);
     Set<Smartphone> getResultList(String keyword);
+    boolean validateLink(String link);
 }

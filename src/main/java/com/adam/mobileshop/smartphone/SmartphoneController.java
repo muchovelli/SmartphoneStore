@@ -37,10 +37,12 @@ public class SmartphoneController {
     public String setNewScraping(@RequestParam String link){
         //scrape
         Smartphone temp = new Smartphone();
-        temp = smartphoneService.scrapeSmartphone(link);
-        temp.toString();
-        //saveSmartphone
-        smartphoneService.saveSmartphone(temp);
+        if(smartphoneService.validateLink(link)){
+            temp = smartphoneService.scrapeSmartphone(link);
+            temp.toString();
+            //saveSmartphone
+            smartphoneService.saveSmartphone(temp);
+        }
         return "redirect:/";
     }
 

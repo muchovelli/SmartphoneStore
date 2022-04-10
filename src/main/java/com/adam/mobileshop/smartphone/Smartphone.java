@@ -20,9 +20,10 @@ public class Smartphone implements Serializable {
 //    @ManyToOne
 //    @JoinColumn(name = "brand_id")
 //    private Brand brand;
+    @Column(name = "originLink")
+    private String link;
 
-    String link;
-   @Column(name="model_name")
+    @Column(name="model_name")
     private String modelName;
 
     @ElementCollection

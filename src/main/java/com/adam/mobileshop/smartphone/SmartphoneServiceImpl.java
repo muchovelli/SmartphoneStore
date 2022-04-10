@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
-public class SmartphoneServiceImpl implements SmartphoneService{
+public class SmartphoneServiceImpl implements SmartphoneService {
     @Autowired
     private SmartphoneRepo smartphoneRepo;
 
@@ -25,11 +25,11 @@ public class SmartphoneServiceImpl implements SmartphoneService{
 
     @Override
     public Smartphone saveSmartphone(Smartphone smartphone) {
-        if(smartphone!=null){
+        if (smartphone != null) {
             System.out.println("duap");
-            for(Smartphone smartphone1 : smartphoneRepo.findAll()){
-                if(smartphone1.getLink()!=null){
-                    if(smartphone1.getLink().equals(smartphone.getLink())){
+            for (Smartphone smartphone1 : smartphoneRepo.findAll()) {
+                if (smartphone1.getLink() != null) {
+                    if (smartphone1.getLink().equals(smartphone.getLink())) {
                         System.out.println("Already in database!");
                         return null;
                     }
@@ -37,10 +37,10 @@ public class SmartphoneServiceImpl implements SmartphoneService{
             }
             System.out.println("duapsssssssssssssssssssss");
 
-            map.put(smartphone.getId(),smartphone);
+            map.put(smartphone.getId(), smartphone);
             this.smartphoneRepo.save(smartphone);
             return smartphone;
-        }else{
+        } else {
             return null;
         }
     }
@@ -54,9 +54,9 @@ public class SmartphoneServiceImpl implements SmartphoneService{
     public Smartphone findById(Long id) {
         Optional<Smartphone> optional = smartphoneRepo.findById(id);
         Smartphone smartphone = null;
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             smartphone = optional.get();
-        }else{
+        } else {
             throw new RuntimeException("Blad");
         }
         return smartphone;
@@ -107,25 +107,25 @@ public class SmartphoneServiceImpl implements SmartphoneService{
 
 
             //Dual Sim
-            if(document.select("tr:nth-of-type(26) > .phoneCategoryValue").attr("class").equals("tick")) {
+            if (document.select("tr:nth-of-type(26) > .phoneCategoryValue").attr("class").equals("tick")) {
                 smartphone.setDualSim(true);
-            }else{
+            } else {
                 smartphone.setDualSim(false);
             }
             System.out.println("DS: " + smartphone.getDualSim());
 
 
             //Bluetooth
-            if(document.select("li:nth-of-type(12) > .phoneCategoryValue").attr("class").equals("tick")) {
+            if (document.select("li:nth-of-type(12) > .phoneCategoryValue").attr("class").equals("tick")) {
                 smartphone.setBluetooth(true);
-            }else{
+            } else {
                 smartphone.setBluetooth(false);
             }
             System.out.println("Bth " + smartphone.getBluetooth());
 
 
             //Camera
-           // smartphone.setCamera();
+            // smartphone.setCamera();
 
             //Quantity
             smartphone.setQuantity(1);
@@ -141,8 +141,8 @@ public class SmartphoneServiceImpl implements SmartphoneService{
 
     @Override
     public Long getIdFromLink(String link1) {
-        for (Smartphone smartphone: smartphoneRepo.findAll()){
-            if(smartphone.getLink().equals(link1)){
+        for (Smartphone smartphone : smartphoneRepo.findAll()) {
+            if (smartphone.getLink().equals(link1)) {
                 return smartphone.getId();
             }
         }
@@ -152,23 +152,32 @@ public class SmartphoneServiceImpl implements SmartphoneService{
     @Override
     public Set<Smartphone> getResultList(String keyword) {
         Set<Smartphone> resultSet = new HashSet<>();
-        for(Smartphone smartphone : smartphoneRepo.findAll()){
-            if(smartphone.getModelName().contains(keyword)){
+        String lowerCaseKeyword = keyword.toLowerCase(Locale.ROOT);
+        for (Smartphone smartphone : smartphoneRepo.findAll()) {
+            if (smartphone.getModelName().toLowerCase(Locale.ROOT).contains(lowerCaseKeyword)) {
                 resultSet.add(smartphone);
-            }else if(smartphone.getLink().contains(keyword)){
+            } else if (smartphone.getLink().toLowerCase(Locale.ROOT).contains(lowerCaseKeyword)) {
                 resultSet.add(smartphone);
-            }else if(smartphone.getOperatingSystem().contains(keyword)){
+            } else if (smartphone.getOperatingSystem().toLowerCase(Locale.ROOT).contains(lowerCaseKeyword)) {
                 resultSet.add(smartphone);
-            }else if(smartphone.getInternalMemory().contains(keyword)){
+            } else if (smartphone.getInternalMemory().contains(lowerCaseKeyword)) {
                 resultSet.add(smartphone);
-            }else if(smartphone.getOtherNames().contains(keyword)){
+            } else if (smartphone.getOtherNames().contains(lowerCaseKeyword)) {
                 resultSet.add(smartphone);
-            }else if(smartphone.getDisplay().contains(keyword)){
-                resultSet.contains(smartphone);
-            }else if(smartphone.getStandards().contains(keyword)){
-                resultSet.contains(smartphone);
+            } else if (smartphone.getDisplay().toLowerCase(Locale.ROOT).contains(lowerCaseKeyword)) {
+                resultSet.add(smartphone);
+            } else if (smartphone.getStandards().contains(lowerCaseKeyword)) {
+                resultSet.add(smartphone);
             }
         }
         return resultSet;
+    }
+
+    @Override
+    public boolean validateLink(String link) {
+        if (link.contains("gsmchoice.com/en/catalogue/")) {
+            return true;
+        }
+        return false;
     }
 }

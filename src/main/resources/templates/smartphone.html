@@ -50,7 +50,17 @@
     <h2>Smartphone info</h2>
     <tr>
         <td th:text="${smartphone.modelName}">a</td>
-        <td th:text="${id}">id</td>
+        <td th:text="${smartphone.id}">id</td>
+        <td th:text="${smartphone.otherNames}">otherNames</td>
+        <td th:text="${smartphone.weight}">weight</td>
+        <td th:text="${smartphone.link}">link</td>
+        <td th:text="${smartphone.display}">display</td>
+        <td th:text="${smartphone.internalMemory}">internalMemoery</td>
+        <td th:text="${smartphone.operatingSystem}">operatingSystem</td>
+        <td th:text="${smartphone.dualSim}">dualSim</td>
+        <td th:text="${smartphone.bluetooth}">bluetooth</td>
+        <td th:text="${smartphone.quantity}">quantity</td>
+
         <td><a th:href="@{/deleteSmartphone/{id}(id=${smartphone.id})}" class="btn btn-danger">Delete</a></td>
     </tr>
 
